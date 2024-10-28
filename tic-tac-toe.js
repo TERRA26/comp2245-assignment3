@@ -2,9 +2,12 @@ document.addEventListener('DOMContentLoaded', function() {
     const board = document.getElementById('board');
     const squares = board.getElementsByTagName('div');
     const status = document.getElementById('status');
+    const newGameBtn = document.querySelector('.btn');
 
     let currentPlayer = 'X';
     let gameState = new Array(9).fill('');
+
+    const INITIAL_STATUS_MESSAGE = "Move your mouse over a square and click to play an X or an O.";
 
     const winningCombinations = [
         [0, 1, 2],
@@ -28,6 +31,22 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         return null;
     }
+
+    function resetGame() {
+        gameState = new Array(9).fill('');
+
+        for (let square of squares) {
+            square.textContent = '';
+            square.classList.remove('X', 'O');
+        }
+
+        status.textContent = INITIAL_STATUS_MESSAGE;
+        status.classList.remove('you-won');
+
+        currentPlayer = 'X';
+    }
+
+    newGameBtn.addEventListener('click', resetGame);
 
     for (let i = 0; i < squares.length; i++) {
         const square = squares[i];
